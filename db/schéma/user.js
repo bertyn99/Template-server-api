@@ -12,8 +12,8 @@ let userSchema = new Schema({
     tokenSession: { type: String, required: false },
     createIp: { type: String, required: true },
     isAdmin: { type: Number, required: false },
-    resetPassword: { type: Object, required: true },
-    mobile: { type: Number, required: true }
+    resetPassword: { type: Object, required: false },
+    mobile: { type: Number, required: false }
 }, { collection: "user-data" });
 
 module.exports = mongoose.model('user-data', userSchema);  
