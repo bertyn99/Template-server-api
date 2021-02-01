@@ -6,7 +6,6 @@ const app = require("express")();
 const compression = require('compression')
 const http = require("http")
 const server = http.createServer(app);
-const io = require('socket.io').listen(server)
 const apiRouter = require("./apiRouter").router;
 const bodyparser = require("body-parser");
 
