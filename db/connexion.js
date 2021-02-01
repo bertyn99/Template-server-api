@@ -4,7 +4,7 @@
 
 const mongoose = require("mongoose");
 const db = require('dotenv').config()
-mongoose.connect(`mongodb://${process.env.USERNAMEDB}:${process.env.PASSWORDDB}@164.132.46.160:27017/clicknchill?retryWrites=true&w=majority`, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.DBURL, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.set('useFindAndModify', false);
 
 let connection = mongoose.connection;
