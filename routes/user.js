@@ -1,15 +1,15 @@
 // To declare
 //db and schema
 const User = require("../db/type/user");
-const UserShema = require("../db/shema/user");
-const database = require("../db/connection");
+const UserShema = require("../db/schema/user");
+const database = require("../db/connexion");
 
 const bcrypt = require("bcrypt");
 
-const isUserExist = require("../services/isUserExist");
+/* const isUserExist = require("../services/isUserExist"); */
 
 // Function
-async function registerUser(req, res) {
+/* async function registerUser(req, res) {
     if (!req.body.mail || !req.body.firstname || !req.body.lastname || !req.body.address || !req.body.city || !req.body.zip || !req.body.mobile || !req.body.password) {
         return res.status(400).json({
             status: "Veuillez remplir completement le formulaire d'inscription",
@@ -37,4 +37,4 @@ async function registerUser(req, res) {
             return updateUser(data._id, randKey.generate(250), res);
         }
     });
-}
+} */
