@@ -4,7 +4,11 @@
 
 const mongoose = require("mongoose");
 const db = require('dotenv').config()
-mongoose.connect(process.env.DBURL, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.DBURL, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true
+});
 mongoose.set('useFindAndModify', false);
 
 let connection = mongoose.connection;
