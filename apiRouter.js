@@ -17,13 +17,17 @@ exports.router = (function () {
     apiRouter.route("/reconnect").post(verifyToken, lastView, user.reconnectUser); */
 
   // my info
-  /*  apiRouter.route("/info").get(verifyToken, user.myInfo);
+  apiRouter.route("/user/:id").get(verifyToken, user.myInfo);
+
+  // edit profile
+  apiRouter.route("/user/:id/edit").patch(verifyToken, user.updateInfo);
+
+  /*  
  
    // info user
    apiRouter.route("/info/:id").get(verifyToken, user.infoUser);
  
-   // edit profile
-   apiRouter.route("/edit").put(verifyToken, user.editUser);
+   
  
    // lost password - client
    apiRouter.route("/lost").post(user.lostPassword);

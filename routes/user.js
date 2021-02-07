@@ -42,21 +42,40 @@ async function logOut(req, res) {
 
 }
 
-async function infoUser(req, res) {
+async function myInfo(req, res) {
     const _id = req.params.id
 
     try {
 
         const user = await User.findById(_id)
+        console.log(user)
         if (!user) {
-            return res.status(404).send()
+            return res.status(404).send("This is a wrong id")
         }
-        res.send(user)
+        res.status(200).send(user)
     } catch (e) {
-        res.status(404).send(e)
+        res.status(404).send("This is a wrong id")
     }
 }
 
+async function updateInfo(req, res) {
+    const allowedUpdates = ['name', 'email', 'password']
+    const updates = Object.keys(req.body)
+    const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
+
+    if (!isValidOperation) {
+        res.status(400).send({ error: 'Invalid Upadates!' })
+    }
+
+    try {
+        updates.forEach((update) => req.user[update] = req.body[update])
+        await req.user.save()
+        res.send(req.user)
+
+    } catch (e) {
+        res.status(400).send(e)
+    }
+}
 
 
 
@@ -97,5 +116,7 @@ async function infoUser(req, res) {
 module.exports = {
     register,
     logIn,
-    logOut
+    logOut,
+    myInfo,
+    updateInfo
 }
