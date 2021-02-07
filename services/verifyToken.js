@@ -1,7 +1,7 @@
 const UserShema = require("../db/schema/user");
 const jwt = require('jsonwebtoken');
 
-module.exports = async (req, res, next) => {
+const verifyToken = async (req, res, next) => {
     try {
         const token = req.header('Authorization').replace('Bearer ', '')
         const decoded = jwt.verify(token, process.env.JWT_SECRET)
@@ -19,3 +19,5 @@ module.exports = async (req, res, next) => {
     }
 
 }
+
+module.exports = verifyToken;
