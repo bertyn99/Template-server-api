@@ -77,6 +77,14 @@ async function updateInfo(req, res) {
     }
 }
 
+async function deleteUser(req, res) {
+    try {
+        await req.user.remove()
+        res.send(req.user)
+    } catch (e) {
+        res.status(500).send(e)
+    }
+}
 
 
 
