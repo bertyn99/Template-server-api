@@ -3,9 +3,10 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const Schema = mongoose.Schema;
+const validator = require('validator')
 
 let userSchema = new Schema({
-    mail: {
+    name: {
         type: String,
         required: true,
         trim: true
@@ -20,6 +21,7 @@ let userSchema = new Schema({
             if (!validator.isEmail(value)) {
                 throw new Error('Invalid Email.')
             }
+
         }
     },
     password: {
@@ -43,16 +45,32 @@ let userSchema = new Schema({
             */
         }
     },
-    firstname: { type: String, required: true },
-    lastname: { type: String, required: true },
-    tokenSession: { type: String, required: false },
-    createIp: { type: String, required: true },
+    firstname: { type: String, required: false },
+    lastname: { type: String, required: false },
+    tokens: [{
+        token: {
+            type: String,
+            required: true
+        }
+    }],
+    createIp: { type: String, required: false },
     isAdmin: { type: Number, required: false },
     resetPassword: { type: Object, required: false },
     mobile: { type: Number, required: false }
 }, {
     timestamps: true
 });
+
+userSchema.methods.generateAuthToken = async function () {
+    const user = this
+
+    const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET)
+
+    user.tokens = user.tokens.concat({ token })
+    await user.save()
+
+    return token
+}
 
 userSchema.statics.findByCredentials = async (email, password) => {
     const user = await User.findOne({ email })
@@ -69,7 +87,14 @@ userSchema.statics.findByCredentials = async (email, password) => {
     return user
 }
 
+userSchema.pre('save', async function (next) {
+    const user = this
+    if (user.isModified('password')) {
+        user.password = await bcrypt.hash(user.password, 8)
+    }
 
+    next()
+})
 
 
 
