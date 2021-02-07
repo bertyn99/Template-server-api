@@ -64,17 +64,14 @@ let userSchema = new Schema({
 userSchema.methods.generateAuthToken = async function () {
     const user = this
     const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_KEY)
-    console.log("token :" + token)
     user.tokens = user.tokens.concat({ token })
-    console.log("après" + user.tokens)
     await user.save()
 
     return token
 }
-
 userSchema.statics.findByCredentials = async (email, password) => {
     const user = await User.findOne({ email })
-
+    console.log(user)
     if (!user) {
         throw new Error('Unable to login.')
     }
@@ -96,6 +93,6 @@ userSchema.pre('save', async function (next) {
     next()
 })
 
+const User = mongoose.model('User', userSchema)
 
-
-module.exports = mongoose.model('user-data', userSchema);  
+module.exports = User;  
