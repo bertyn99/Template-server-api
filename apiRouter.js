@@ -11,7 +11,7 @@ exports.router = (function () {
   apiRouter.route("/login").post(user.logIn);
 
   // deconnection user
-  apiRouter.route("/logout").post(user.logOut);
+  apiRouter.route("/logout").post(verifyToken, user.logOut);
 
   /*   // reconnect user
     apiRouter.route("/reconnect").post(verifyToken, lastView, user.reconnectUser); */
