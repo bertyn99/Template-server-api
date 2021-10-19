@@ -3,12 +3,8 @@
 //////////////////////////////////////////////////////////////////////////
 
 const mongoose = require("mongoose");
-const db = require('dotenv').config()
-mongoose.connect(process.env.DBURL, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true
-});
+const db = require('../config');
+mongoose.connect(db.DBURL);
 mongoose.set('useFindAndModify', false);
 
 let connection = mongoose.connection;
