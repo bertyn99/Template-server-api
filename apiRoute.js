@@ -1,9 +1,14 @@
 const express = require("express");
-const user = require("./routes/user");
+const user = require("./controllers/user");
 const verifyToken = require("./services/verifyToken");
 
 exports.router = (function () {
   let apiRouter = express.Router();
+
+  //healthCheck
+  apiRouter.get("/", (req, res) => {
+    res.send("API is running");
+  });
   // register user
   apiRouter.route("/register").post(user.register);
 
