@@ -13,11 +13,10 @@ async function register(req, res) {
     await user.save();
     //envoyer l'emaild e confirmation de création de compte
     const token = await user.generateAuthToken();
-
-    res.status(201).send({ user, token });
-    successRes(res);
+    const { password, ...useWithoutPassword } = user._doc;
+    successRes(res, { ...useWithoutPassword, accessToken: token }, 201);
   } catch (e) {
-    res.status(400).send(e);
+    errorRes(res, e, 400);
   }
 }
 
@@ -28,9 +27,10 @@ async function logIn(req, res) {
       req.body.password
     );
     const token = await user.generateAuthToken();
-    res.send({ user, token });
+    const { password, ...useWithoutPassword } = user._doc;
+    successRes(res, { ...useWithoutPassword, accessToken: token }, 201);
   } catch (e) {
-    res.status(400).send(e);
+    errorRes(res, e, 400);
   }
 }
 
@@ -39,9 +39,9 @@ async function logOut(req, res) {
     req.user.tokens = [];
     await req.user.save();
 
-    res.send();
+    successRes(res, {}, 200);
   } catch (e) {
-    res.status(500).send(e);
+    errorRes(res, e, 500);
   }
 }
 

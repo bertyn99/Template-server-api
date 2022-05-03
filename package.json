@@ -9,14 +9,14 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/Brozzor/netflix-party-v2-server.git"
+        "url": "git+https://github.com/bertyn99/Template-server-api"
     },
     "author": "",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/Brozzor/netflix-party-v2-server/issues"
+        "url": "https://github.com/bertyn99/Template-server-api/issues"
     },
-    "homepage": "https://github.com/Brozzor/netflix-party-v2-server#readme",
+    "homepage": "https://github.com/bertyn99/Template-server-api#readme",
     "dependencies": {
         "axios": "^0.26.1",
         "bcrypt": "^5.0.1",
