@@ -3,7 +3,7 @@
 /* const User = require("../db/type/user"); */
 const User = require("../db/schema/user");
 const database = require("../db/connexion");
-
+const { successRes, errorRes } = require("../common/response");
 const bcrypt = require("bcrypt");
 
 async function register(req, res) {
@@ -13,7 +13,9 @@ async function register(req, res) {
     await user.save();
     //envoyer l'emaild e confirmation de création de compte
     const token = await user.generateAuthToken();
+
     res.status(201).send({ user, token });
+    successRes(res);
   } catch (e) {
     res.status(400).send(e);
   }
