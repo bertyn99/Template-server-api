@@ -4,7 +4,7 @@ const express = require("express");
 const app = express();
 const compression = require("compression");
 const config = require("./config");
-const apiRouter = require("./apiRoute").router;
+const apiRouter = require("./route").router;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
