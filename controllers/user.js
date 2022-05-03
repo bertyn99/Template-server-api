@@ -1,7 +1,6 @@
 // To declare
 //db and schema
-/* const User = require("../db/type/user"); */
-const User = require("../db/schema/user");
+const User = require("../db/model/user");
 const database = require("../db/connexion");
 const { successRes, errorRes } = require("../common/response");
 const bcrypt = require("bcrypt");
