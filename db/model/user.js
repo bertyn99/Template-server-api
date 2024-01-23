@@ -1,9 +1,13 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const Schema = mongoose.Schema;
-const validator = require("validator");
-const config = require("../../config");
+import { Schema as _Schema, model } from "mongoose";
+import { compare, hash } from "bcrypt";
+import jwt from "jsonwebtoken";
+const Schema = _Schema;
+import validator from "validator";
+import config from "../../config.js";
+
+const { sign } = jwt;
+const { isEmail } = validator;
+const { JWT_SECRET } = config;
 
 let userSchema = new Schema(
   {
@@ -19,7 +23,7 @@ let userSchema = new Schema(
       lowercase: true,
       unique: true,
       validate(value) {
-        if (!validator.isEmail(value)) {
+        if (!isEmail(value)) {
           throw new Error("Invalid Email.");
         }
       },
@@ -72,7 +76,7 @@ let userSchema = new Schema(
 
 userSchema.methods.generateAuthToken = async function () {
   const user = this;
-  const token = jwt.sign({ _id: user._id.toString() }, config.JWT_SECRET);
+  const token = sign({ _id: user._id.toString() }, JWT_SECRET);
   user.tokens = user.tokens.concat({ token });
   await user.save();
 
@@ -85,7 +89,7 @@ userSchema.statics.findByCredentials = async (email, password) => {
     throw new Error("Unable to login.");
   }
 
-  const isMatch = await bcrypt.compare(password, user.password);
+  const isMatch = await compare(password, user.password);
 
   if (!isMatch) {
     throw new Error("Unable to login.");
@@ -96,12 +100,12 @@ userSchema.statics.findByCredentials = async (email, password) => {
 userSchema.pre("save", async function (next) {
   const user = this;
   if (user.isModified("password")) {
-    user.password = await bcrypt.hash(user.password, 8);
+    user.password = await hash(user.password, 8);
   }
 
   next();
 });
 
-const User = mongoose.model("User", userSchema);
+const User = model("User", userSchema);
 
-module.exports = User;
+export default User;

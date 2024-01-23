@@ -1,14 +1,14 @@
 // Dev comments :
 
-const express = require("express");
+import express, { urlencoded, json } from "express";
 const app = express();
-const compression = require("compression");
-const morgan = require("morgan");
-const config = require("./config");
-const apiRouter = require("./route").router;
-
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+import compression from "compression";
+import morgan from "morgan";
+import config from "./config.js";
+import { router as apiRouter } from "./route.js";
+const { PORT } = config;
+app.use(urlencoded({ extended: true }));
+app.use(json());
 app.use(compression());
 app.use(morgan("tiny"));
 app.use(function (req, res, next) {
@@ -21,6 +21,6 @@ app.use(function (req, res, next) {
 });
 
 app.use("/api", apiRouter);
-app.listen(config.PORT, () => {
-  console.log(`Application listening on port ${config.PORT}!`);
+app.listen(PORT, () => {
+  console.log(`Application listening on port ${PORT}!`);
 });

@@ -2,11 +2,14 @@
 //                            DATABASE CONNECTION                       //
 //////////////////////////////////////////////////////////////////////////
 
-const mongoose = require("mongoose");
-const db = require("../config");
-mongoose.connect(db.DBURL);
+import mongoose from "mongoose";
+import config from "../config.js";
 
-let connection = mongoose.connection;
+const { connect, connection: _connection } = mongoose;
+const { DBURL } = config;
+connect(DBURL);
+
+let connection = _connection;
 
 connection.on(
   "error",
@@ -16,4 +19,4 @@ connection.once("open", () => {
   console.log("Connexion à la base OK");
 });
 
-module.exports = connection;
+export default connection;

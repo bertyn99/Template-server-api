@@ -1,9 +1,9 @@
 // To declare
 //db and schema
-const User = require("../db/model/user");
-const database = require("../db/connexion");
-const { successRes, errorRes } = require("../common/response");
-const bcrypt = require("bcrypt");
+import User from "../db/model/user.js";
+import database from "../db/connexion.js";
+import { successRes, errorRes } from "../common/response.js";
+import bcrypt from "bcrypt";
 
 async function register(req, res) {
   const user = new User(req.body);
@@ -49,7 +49,7 @@ async function myInfo(req, res) {
 
   try {
     const user = await User.findById(_id);
-    console.log(user);
+
     if (!user) {
       return res.status(404).send("This is a wrong id");
     }
@@ -119,7 +119,7 @@ async function deleteUser(req, res) {
     });
 } */
 
-module.exports = {
+export default {
   register,
   logIn,
   logOut,

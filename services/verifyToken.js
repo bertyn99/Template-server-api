@@ -1,5 +1,5 @@
-const User = require("../db/model/user");
-const jwt = require("jsonwebtoken");
+import User from "../db/model/user.js";
+import jwt from "jsonwebtoken";
 
 const verifyToken = async (req, res, next) => {
   try {
@@ -9,7 +9,6 @@ const verifyToken = async (req, res, next) => {
       _id: decoded._id,
       "tokens.token": token,
     });
-    console.log(user);
     if (!user) {
       throw new Error();
     }
@@ -22,4 +21,4 @@ const verifyToken = async (req, res, next) => {
   }
 };
 
-module.exports = verifyToken;
+export default verifyToken;
