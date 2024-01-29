@@ -6,7 +6,10 @@
     "type": "module",
     "scripts": {
         "start": "nodemon index.js",
-        "start prod": "NODE_ENV=production nodemon src/index.js"
+        "start prod": "NODE_ENV=production nodemon src/index.js",
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "test:coverage": "vitest run --coverage"
     },
     "repository": {
         "type": "git",
@@ -31,11 +34,14 @@
         "jsonwebtoken": "^9.0.2",
         "lodash": "^4.17.21",
         "mongoose": "^8.1.0",
-        "morgan": "^1.10.0",
         "nodemailer": "^6.9.8",
         "nodemon": "^3.0.3",
         "swagger-jsdoc": "^6.2.8",
         "swagger-ui-express": "^5.0.0",
-        "validator": "^13.11.0"
+        "validator": "^13.11.0",
+        "winston": "^3.11.0"
+    },
+    "devDependencies": {
+        "vitest": "^1.2.2"
     }
 }
