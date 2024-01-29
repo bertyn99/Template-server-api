@@ -16,7 +16,7 @@ export const router = (function () {
   apiRouter.route("/login").post(User.logIn);
 
   // deconnection user
-  apiRouter.route("/logout").post(verifyToken, User.logOut);
+  /* apiRouter.route("/logout").post(verifyToken, User.logOut); */
 
   /*   // reconnect user
     apiRouter.route("/reconnect").post(verifyToken, lastView, user.reconnectUser); */
