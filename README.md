@@ -14,6 +14,7 @@ This project is a template for creating a REST API with built-in features such a
 ## Current Functionality
 
 - User Authentication: Users can sign up, log in, and log out. Authentication is handled using JWT tokens.
+- Logging with winston
 - Pagination: The API supports pagination for handling large amounts of data.
 - Session Token Management: The API manages session tokens for logged-in users.
 
@@ -21,7 +22,7 @@ This project is a template for creating a REST API with built-in features such a
 
 - Emailing Service: An emailing service will be added to send emails to users for various notifications.
 - Enhanced Security: More security features will be added to protect user data and prevent unauthorized access,  better management jwt.
-- 
+- Implementation openApi swagger
 
 ## How to Run
 
